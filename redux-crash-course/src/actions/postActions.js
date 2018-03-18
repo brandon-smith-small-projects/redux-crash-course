@@ -22,11 +22,5 @@ export const createPost = (postData) => dispatch => {
       type: NEW_POST,
       payload: post
     }))
-    /*.then(() => {
-      this.setState({open: false})
-      setTimeout(() => {
-        this.setState({snackBarOpen: true})
-      }, 1000)
-    })*/
 }
 

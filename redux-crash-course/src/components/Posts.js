@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchPosts } from '../actions/postActions'
+import FlipMove from 'react-flip-move';
 
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
@@ -13,9 +14,10 @@ class Posts extends React.Component{
     this.props.fetchPosts()
   }
   
-  componentWillRecieveProps(nextProps){
+  componentWillReceiveProps(nextProps){
     if(nextProps.newPost){
       this.props.posts.unshift(nextProps.newPost)
+      
     }
   }
   

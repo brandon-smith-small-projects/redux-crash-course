@@ -50,6 +50,10 @@ class PostsForm extends React.Component{
     }
     
     this.props.createPost(post)
+    this.setState({open: false})
+      setTimeout(() => {
+        this.setState({snackBarOpen: true})
+      }, 1000)
   }
   
   handleClickOpen(){
