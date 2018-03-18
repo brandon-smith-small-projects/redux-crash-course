@@ -1,4 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { createPost } from '../actions/postActions'
+
+
 import Typography from 'material-ui/Typography';
 import Card, {CardContent} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
@@ -44,21 +49,7 @@ class PostsForm extends React.Component{
       body: this.state.body
     }
     
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(post)
-    })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .then(() => {
-      this.setState({open: false})
-      setTimeout(() => {
-        this.setState({snackBarOpen: true})
-      }, 1000)
-    })
+    this.props.createPost(post)
   }
   
   handleClickOpen(){
@@ -170,4 +161,9 @@ class PostsForm extends React.Component{
     )
   }
 }
-export default PostsForm
+
+PostsForm.propTypes = {
+  createPost: PropTypes.func.isRequired
+}
+
+export default connect(null, { createPost })(PostsForm)
