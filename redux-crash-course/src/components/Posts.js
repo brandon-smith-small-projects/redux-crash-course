@@ -1,27 +1,19 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { fetchPosts } from '../actions/postActions'
+
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Card, {CardContent} from 'material-ui/Card';
 
 class Posts extends React.Component{
-  
-  constructor(props){
-    super(props)
-    
-    this.state = {
-      posts: []
-    }
-  }
-  
   componentWillMount(){
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(res => res.json())
-      .then(data => this.setState({posts: data}))
-      
+    this.props.fetchPosts()
   }
-
+  
   render(){
-    const postItems = this.state.posts.map(post => {
+    const postItems = this.props.posts.map(post => {
       return(
         <Grid item sm={6}  key={post.id}>
           <div >
@@ -59,4 +51,13 @@ class Posts extends React.Component{
   }
 }
 
-export default Posts
+Posts.propTypes = {
+  fetchPosts: PropTypes.func.isRequired,
+  posts: PropTypes.array.isRequired
+}
+
+const mapStateToProps = state => ({
+  posts: state.posts.items
+})
+
+export default connect(mapStateToProps, { fetchPosts })(Posts)

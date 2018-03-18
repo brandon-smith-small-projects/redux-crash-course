@@ -5,7 +5,6 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Slide from 'material-ui/transitions/Slide';
 import IconButton from 'material-ui/IconButton';
-import Divider from 'material-ui/Divider'
 import CloseIcon from 'material-ui-icons/Close';
 import Dialog from 'material-ui/Dialog'
 import AppBar from 'material-ui/AppBar';
