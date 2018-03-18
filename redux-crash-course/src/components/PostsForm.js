@@ -9,6 +9,7 @@ import Divider from 'material-ui/Divider'
 import CloseIcon from 'material-ui-icons/Close';
 import Dialog from 'material-ui/Dialog'
 import AppBar from 'material-ui/AppBar';
+import Snackbar from 'material-ui/Snackbar';
 import Toolbar from 'material-ui/Toolbar';
 
 
@@ -22,13 +23,15 @@ class PostsForm extends React.Component{
     this.state={
       title: '',
       body: '',
-      open: false
+      open: false,
+      snackBarOpen: false,
     }
     
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.handleClickOpen = this.handleClickOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.SnackBarClose = this.SnackBarClose.bind(this)
   }
   
   onChange(e){
@@ -51,16 +54,35 @@ class PostsForm extends React.Component{
     })
     .then(res => res.json())
     .then(data => console.log(data))
-    
+    .then(() => {
+      this.setState({open: false})
+      setTimeout(() => {
+        this.setState({snackBarOpen: true})
+      }, 1000)
+    })
   }
   
   handleClickOpen(){
-    this.setState({ open: true });
+    this.setState(
+      { 
+        open: true,
+        title: '',
+        body: ''
+      }
+    );
   }
   
   handleClose = () => {
     this.setState({ open: false });
   };
+  
+  SnackBarOpen(){
+    this.setState({snackBarOpen: true})
+  }
+  
+  SnackBarClose(){
+    this.setState({snackBarOpen: false})
+  }
 
   
   render(){
@@ -135,6 +157,16 @@ class PostsForm extends React.Component{
           </CardContent>
         </Card>
       </Dialog>
+      <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        autoHideDuration={4000}
+        open={this.state.snackBarOpen}
+        onClose={this.SnackBarClose}
+        SnackbarContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+        message={<span id="message-id">'{this.state.title}' Has Been Added</span>}
+      />
     </div>
     )
   }
